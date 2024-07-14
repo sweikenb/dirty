@@ -1,0 +1,46 @@
+{
+    "name": "sweikenb/dirty",
+    "description": "Library for checking if an object or array has changes (is dirty) since the last check.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Schröer",
+            "email": "code@sweikenb.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "symfony/serializer": "^6.4 | ^7.0",
+        "symfony/property-access": "^6.4 | ^7.0"
+    },
+    "require-dev": {
+        "ext-xdebug": "*",
+        "phpunit/phpunit": "^11.2",
+        "symplify/easy-coding-standard": "^12.3",
+        "friendsofphp/php-cs-fixer": "^3.59"
+    },
+    "suggest": {
+        "ext-redis": "*",
+        "snc/redis-bundle": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sweikenb\\Library\\Dirty\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "examples/",
+            "tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sweikenb\\Library\\Dirty\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "phpcs-fixer": "./vendor/bin/php-cs-fixer fix src --rules=@Symfony",
+        "phpunit": "XDEBUG_MODE=coverage php ./vendor/bin/phpunit -c phpunit.dist.xml"
+    }
+}
