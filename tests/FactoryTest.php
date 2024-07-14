@@ -6,14 +6,15 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Sweikenb\Library\Dirty\Api\ConfigInterface;
 use Sweikenb\Library\Dirty\Factory;
+use Sweikenb\Library\Dirty\Model\ConfigModel;
 use Sweikenb\Library\Dirty\Model\DiffModel;
 use Sweikenb\Library\Dirty\Model\DirtyCheckResultModel;
 use Sweikenb\Library\Dirty\Model\NormalizedModel;
 
 #[CoversClass(DirtyCheckResultModel::class)]
 #[CoversClass(NormalizedModel::class)]
-#[CoversClass(ConfigInterface::class)]
 #[CoversClass(DiffModel::class)]
+#[CoversClass(ConfigModel::class)]
 #[CoversClass(Factory::class)]
 class FactoryTest extends TestCase
 {
@@ -55,6 +56,7 @@ class FactoryTest extends TestCase
         $model = $this->factory->createConfig($check, $ignore);
 
         $this->assertInstanceOf(ConfigInterface::class, $model);
+        $this->assertInstanceOf(ConfigModel::class, $model);
         $this->assertSame($model->getFieldsToCheck(), $check);
         $this->assertSame($model->getFieldsToIgnore(), $ignore);
     }
