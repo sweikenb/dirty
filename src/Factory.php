@@ -28,7 +28,7 @@ class Factory
         return new ConfigModel($checkFieldPaths, $ignoreFieldPaths);
     }
 
-    public function createValueDiff(string $fieldPath, mixed $previously, mixed $currently): DiffModel
+    public function createDiff(string $fieldPath, mixed $previously, mixed $currently): DiffModel
     {
         return new DiffModel($fieldPath, $previously, $currently);
     }

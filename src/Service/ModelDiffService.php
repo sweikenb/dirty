@@ -19,7 +19,7 @@ class ModelDiffService
         $diff = [];
         foreach ($previous?->fieldPaths ?? [] as $fieldPath => $value) {
             if (!isset($current->fieldPaths[$fieldPath]) || $value !== $current->fieldPaths[$fieldPath]) {
-                $diff[$fieldPath] = $this->factory->createValueDiff(
+                $diff[$fieldPath] = $this->factory->createDiff(
                     $fieldPath,
                     $value,
                     $current->fieldPaths[$fieldPath] ?? null
@@ -28,7 +28,7 @@ class ModelDiffService
         }
         foreach ($current->fieldPaths as $fieldPath => $value) {
             if (!isset($previous?->fieldPaths[$fieldPath]) || $value !== $previous->fieldPaths[$fieldPath]) {
-                $diff[$fieldPath] = $this->factory->createValueDiff(
+                $diff[$fieldPath] = $this->factory->createDiff(
                     $fieldPath,
                     $previous?->fieldPaths[$fieldPath] ?? null,
                     $value
