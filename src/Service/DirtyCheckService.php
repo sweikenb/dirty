@@ -26,16 +26,25 @@ class DirtyCheckService
         $this->modelDiff = $modelDiff ?? new ModelDiffService();
     }
 
-    public function execute(string $id, array|object $toCheck, ?ConfigInterface $config = null): DirtyCheckResultModel
-    {
+    public function execute(
+        string $id,
+        array | object $toCheck,
+        ?ConfigInterface $config = null,
+        bool $storeResult = true
+    ): DirtyCheckResultModel {
         $current = $this->normalizer->execute($id, $toCheck, $config);
 
         $diff = [];
+        $updateStoreCallback = null;
         if (!$this->checkHashBeforeLoad || $this->storage->hasChanges($current)) {
             $diff = $this->modelDiff->execute($this->storage->getPreviousNormalization($current), $current);
-            $this->storage->store($current);
+            if ($storeResult) {
+                $this->storage->store($current);
+            } else {
+                $updateStoreCallback = fn() => $this->storage->store($current);
+            }
         }
 
-        return $this->factory->createResult($diff);
+        return $this->factory->createResult($diff, $updateStoreCallback);
     }
 }

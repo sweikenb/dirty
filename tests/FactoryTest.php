@@ -29,7 +29,7 @@ class FactoryTest extends TestCase
     {
         $fields = ['foo' => new DiffModel('field', 'prev', 'curr')];
 
-        $model = $this->factory->createResult($fields);
+        $model = $this->factory->createResult($fields, null);
 
         $this->assertInstanceOf(DirtyCheckResultModel::class, $model);
         $this->assertTrue($model->isDirty);

@@ -13,9 +13,9 @@ class Factory
     /**
      * @param array<string, DiffModel> $diffFieldPaths
      */
-    public function createResult(array $diffFieldPaths): DirtyCheckResultModel
+    public function createResult(array $diffFieldPaths, ?callable $updateStoreCallback): DirtyCheckResultModel
     {
-        return new DirtyCheckResultModel(!empty($diffFieldPaths), $diffFieldPaths);
+        return new DirtyCheckResultModel(!empty($diffFieldPaths), $diffFieldPaths, $updateStoreCallback);
     }
 
     public function createNormalized(string $storageKey, array $fieldPaths, string $hash): NormalizedModel
