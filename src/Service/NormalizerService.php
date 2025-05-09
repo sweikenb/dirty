@@ -75,7 +75,7 @@ class NormalizerService
                     '/^(%s)/',
                     implode(
                         '|',
-                        array_map(fn (string $str) => preg_quote($str, '/'), $config->getFieldsToCheck())
+                        array_map(fn (string $str) => str_replace('\*', '(.+)', preg_quote($str, '/')), $config->getFieldsToCheck())
                     )
                 );
                 $keepKeys = [];
@@ -93,7 +93,7 @@ class NormalizerService
                     '/^(%s)/',
                     implode(
                         '|',
-                        array_map(fn (string $str) => preg_quote($str, '/'), $config->getFieldsToIgnore())
+                        array_map(fn (string $str) => str_replace('\*', '(.+)', preg_quote($str, '/')), $config->getFieldsToIgnore())
                     )
                 );
                 foreach ($keepKeys as $flattenKey) {
